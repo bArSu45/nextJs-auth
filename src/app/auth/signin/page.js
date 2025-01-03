@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
 import Link from 'next/link';
 function LoadingSpinner() {
   return (
@@ -29,8 +30,12 @@ export default function SignIn() {
 
     if (result.error) {
       setError(result.error);
+      toast.error(result.error)
     } else {
-      router.push('/');
+      toast.success("User loggedin successfully!")
+      setTimeout(() => {
+        router.push('/');
+      },3000)
     }
     setIsLoading(false);
   }
@@ -84,6 +89,7 @@ export default function SignIn() {
         </div>
         <Link href="/auth/register" className="block text-center font-medium text-gray-600 mt-5"><p>Create a Account?</p></Link>
       </div>
+      <ToastContainer />
     </div>
   );
 }

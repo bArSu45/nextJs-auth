@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
 import Link from 'next/link';
 function LoadingSpinner() {
   return (
@@ -35,8 +36,12 @@ export default function Register() {
     setIsLoading(false);
     if (!res.ok) {
       setError(data.error);
+      toast.error(data.error)
     } else {
-      router.push('/auth/signin');
+      toast.success("User registered successfully!")
+      setTimeout(() => {
+        router.push('/auth/signin');
+      },3000)
     }
   }
 
@@ -88,6 +93,7 @@ export default function Register() {
           <Link href="/auth/signin" className="block text-center font-medium mb-1 text-gray-600"><p>Already Have a Account?</p></Link>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }
